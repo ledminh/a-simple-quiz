@@ -2,6 +2,8 @@
 
 declare type WelcomeScreenProps = {
   onStart: () => void;
+  name: string;
+  setName: (name: string) => void;
 };
 
 declare type TestScreenProps = {

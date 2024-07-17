@@ -10,6 +10,13 @@ function App() {
     "not_start"
   );
 
+  const [name, setName] = useState<string>("");
+  const [score, setScore] = useState<number>(0);
+
+  const onDone = () => {
+    setState("done");
+  };
+
   return (
     <div className="max-w-3xl m-2 md:m-auto">
       <header className="mb-8">
@@ -18,9 +25,13 @@ function App() {
       </header>
       <main>
         {state === "not_start" && (
-          <WelcomeScreen onStart={() => setState("started")} />
+          <WelcomeScreen
+            onStart={() => setState("started")}
+            name={name}
+            setName={setName}
+          />
         )}
-        {state === "started" && <TestScreen onDone={() => setState("done")} />}
+        {state === "started" && <TestScreen onDone={onDone} />}
 
         {state === "done" && (
           <FinishScreen onRestart={() => setState("not_start")} />
