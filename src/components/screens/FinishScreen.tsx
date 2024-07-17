@@ -5,7 +5,10 @@ const FinishScreen = ({ onRestart }: FinishScreenProps) => {
     <div className="flex flex-col gap-3">
       <div>
         <p>Thank you for taking the quiz!</p>
-        <p>Your score is: 4/4</p>
+        <p>
+          Your score is:{" "}
+          <span className="text-red-800 font-bold text-lg">100%</span>
+        </p>
       </div>
 
       <div className="flex flex-col gap-2 bg-gray-300 p-4 rounded-md">
