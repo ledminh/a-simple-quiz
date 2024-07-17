@@ -7,31 +7,26 @@ import FinishScreen from "./components/screens/FinishScreen";
 
 function App() {
   const [state, setState] = useState<"not_start" | "started" | "done">(
-    "not_start"
+    "started"
   );
 
   return (
-    <html>
-      <head></head>
-      <body>
-        <header>
-          <h1>A Simple Quiz</h1>
-          <p>Test your knowledge</p>
-        </header>
-        <main>
-          {state === "not_start" && (
-            <WelcomeScreen onStart={() => setState("started")} />
-          )}
-          {state === "started" && (
-            <TestScreen onDone={() => setState("done")} />
-          )}
+    <>
+      <header>
+        <h1>A Simple Quiz</h1>
+        <p>Test your knowledge</p>
+      </header>
+      <main>
+        {state === "not_start" && (
+          <WelcomeScreen onStart={() => setState("started")} />
+        )}
+        {state === "started" && <TestScreen onDone={() => setState("done")} />}
 
-          {state === "done" && (
-            <FinishScreen onRestart={() => setState("not_start")} />
-          )}
-        </main>
-      </body>
-    </html>
+        {state === "done" && (
+          <FinishScreen onRestart={() => setState("not_start")} />
+        )}
+      </main>
+    </>
   );
 }
 
