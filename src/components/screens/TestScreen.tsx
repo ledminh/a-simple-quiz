@@ -16,19 +16,25 @@ const TestScreen = ({ onDone }: TestScreenProps) => {
   };
 
   return (
-    <form>
+    <form className="flex flex-col gap-4">
       <h2>{currentQuestion.question}</h2>
-      {currentQuestion.options.map((option) => (
-        <label key={option}>
-          <input type="radio" name="answer" value={option} />
-          {option}
-        </label>
-      ))}
-      <button type="submit" onClick={handleNext}>
-        {questions.indexOf(currentQuestion) === questions.length - 1
-          ? "Finish"
-          : "Next"}
-      </button>
+      <ul className="flex flex-col gap-3">
+        {currentQuestion.options.map((option) => (
+          <li key={option}>
+            <label className="flex gap-2">
+              <input type="radio" name="answer" value={option} />
+              <span>{option}</span>
+            </label>
+          </li>
+        ))}
+      </ul>
+      <div>
+        <button type="submit" onClick={handleNext}>
+          {questions.indexOf(currentQuestion) === questions.length - 1
+            ? "Finish"
+            : "Next"}
+        </button>
+      </div>
     </form>
   );
 };
