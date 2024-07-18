@@ -3,17 +3,22 @@ import React, { useState } from "react";
 const TestScreen = ({ onDone }: TestScreenProps) => {
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
 
+  const [error, setError] = useState<boolean>(false);
+
   const [numCorrect, setNumCorrect] = useState(0);
 
   const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    setError(false);
+
     // Check and adjust score
     const selectedOption = document.querySelector(
       'input[name="answer"]:checked'
-    ) as HTMLInputElement;
+    ) as HTMLInputElement | null;
 
-    if (!selectedOption) {
+    if (selectedOption === null) {
+      setError(true);
       return;
     }
 
@@ -44,6 +49,7 @@ const TestScreen = ({ onDone }: TestScreenProps) => {
           </li>
         ))}
       </ul>
+      {error && <p className="text-red-600">Please select an answer</p>}
       <div>
         <button type="submit" onClick={handleNext}>
           {questions.indexOf(currentQuestion) === questions.length - 1

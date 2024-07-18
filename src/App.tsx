@@ -17,6 +17,12 @@ function App() {
     setState("done");
   };
 
+  const onRestart = () => {
+    setName("");
+    setScore(0);
+    setState("not_start");
+  };
+
   return (
     <div className="max-w-3xl m-2 md:m-auto">
       <header className="mb-8">
@@ -33,9 +39,7 @@ function App() {
         )}
         {state === "started" && <TestScreen onDone={onDone} />}
 
-        {state === "done" && (
-          <FinishScreen onRestart={() => setState("not_start")} />
-        )}
+        {state === "done" && <FinishScreen onRestart={onRestart} />}
       </main>
     </div>
   );
