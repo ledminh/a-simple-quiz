@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 
-const TestScreen = ({ onDone }: TestScreenProps) => {
+const TestScreen = ({
+  onDone,
+  questions,
+  onUpdateResponse,
+}: TestScreenProps) => {
+  // STATES
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
 
   const [error, setError] = useState<boolean>(false);
 
-  const [numCorrect, setNumCorrect] = useState(0);
+  // FUNCTIONS
 
   const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -22,9 +27,10 @@ const TestScreen = ({ onDone }: TestScreenProps) => {
       return;
     }
 
-    if (selectedOption.value === currentQuestion.answer) {
-      setNumCorrect(numCorrect + 1);
-    }
+    const response = selectedOption.value;
+
+    // Update response
+    onUpdateResponse(currentQuestion, response);
 
     // Move to next question or finish
     const nextIndex = questions.indexOf(currentQuestion) + 1;
@@ -38,6 +44,9 @@ const TestScreen = ({ onDone }: TestScreenProps) => {
 
   return (
     <form className="flex flex-col gap-4">
+      <p>
+        Question {questions.indexOf(currentQuestion) + 1}/{questions.length}
+      </p>
       <h2>{currentQuestion.question}</h2>
       <ul className="flex flex-col gap-3">
         {currentQuestion.options.map((option) => (
@@ -62,30 +71,3 @@ const TestScreen = ({ onDone }: TestScreenProps) => {
 };
 
 export default TestScreen;
-
-const questions = [
-  {
-    id: 1,
-    question: "What is the capital of France?",
-    options: ["Paris", "London", "Berlin", "Madrid"],
-    answer: "Paris",
-  },
-  {
-    id: 2,
-    question: "What is the capital of Spain?",
-    options: ["Paris", "London", "Berlin", "Madrid"],
-    answer: "Madrid",
-  },
-  {
-    id: 3,
-    question: "What is the capital of Germany?",
-    options: ["Paris", "London", "Berlin", "Madrid"],
-    answer: "Berlin",
-  },
-  {
-    id: 4,
-    question: "What is the capital of England?",
-    options: ["Paris", "London", "Berlin", "Madrid"],
-    answer: "London",
-  },
-];

@@ -1,6 +1,11 @@
 import React from "react";
 
-const WelcomeScreen = ({ onStart, name, setName }: WelcomeScreenProps) => {
+const WelcomeScreen = ({
+  onStart,
+  name,
+  setName,
+  numQuestions,
+}: WelcomeScreenProps) => {
   const [error, setError] = React.useState<boolean>(false);
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -18,7 +23,9 @@ const WelcomeScreen = ({ onStart, name, setName }: WelcomeScreenProps) => {
     <form className="flex flex-col gap-4">
       <h2>Welcome to Simple Quiz</h2>
       <div className="flex flex-col gap-4">
-        <p>You will be presented with 4 multiple choices questions.</p>
+        <p>
+          You will be presented with {numQuestions} multiple choices questions.
+        </p>
         <p>Can you score 100%?</p>
         <p>Enter your name and click to start the quiz</p>
         <div className="flex gap-2">
