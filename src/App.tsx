@@ -80,7 +80,9 @@ function App() {
           />
         )}
 
-        {state === "done" && <FinishScreen onRestart={onRestart} />}
+        {state === "done" && (
+          <FinishScreen onRestart={onRestart} questions={questions} />
+        )}
       </main>
     </div>
   );

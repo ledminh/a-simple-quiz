@@ -1,16 +1,40 @@
 import React from "react";
 
-const FinishScreen = ({ onRestart }: FinishScreenProps) => {
+const FinishScreen = ({ onRestart, questions }: FinishScreenProps) => {
+  const percentage =
+    (questions.filter((q) => q.response === q.answer).length /
+      questions.length) *
+    100;
+
   return (
     <div className="flex flex-col gap-3">
       <div>
         <p>Thank you for taking the quiz!</p>
         <p>
           Your score is:{" "}
-          <span className="text-red-800 font-bold text-lg">100%</span>
+          <span className="text-red-800 font-bold text-lg">{percentage}%</span>
         </p>
       </div>
-
+      <div>
+        <h2 className="mb-2">RESULTS:</h2>
+        <ol className="text-sm">
+          {questions.map((question) => (
+            <li
+              key={question.id}
+              className={`
+              ${
+                question.response === question.answer
+                  ? ""
+                  : "text-red-600 font-semibold"
+              }
+            `}
+            >
+              {question.question} -{" "}
+              {question.response === question.answer ? "Correct" : "Incorrect"}
+            </li>
+          ))}
+        </ol>
+      </div>
       <div className="flex flex-col gap-2 bg-gray-300 p-4 rounded-md">
         <h2>Leader Board</h2>
         <ol>

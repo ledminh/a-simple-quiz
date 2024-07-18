@@ -15,6 +15,7 @@ declare type TestScreenProps = {
 
 declare type FinishScreenProps = {
   onRestart: () => void;
+  questions: QuestionWithResponse[];
 };
 
 // Data Types
