@@ -3,9 +3,25 @@ import React, { useState } from "react";
 const TestScreen = ({ onDone }: TestScreenProps) => {
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
 
+  const [numCorrect, setNumCorrect] = useState(0);
+
   const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    // Check and adjust score
+    const selectedOption = document.querySelector(
+      'input[name="answer"]:checked'
+    ) as HTMLInputElement;
+
+    if (!selectedOption) {
+      return;
+    }
+
+    if (selectedOption.value === currentQuestion.answer) {
+      setNumCorrect(numCorrect + 1);
+    }
+
+    // Move to next question or finish
     const nextIndex = questions.indexOf(currentQuestion) + 1;
 
     if (nextIndex === questions.length) {
