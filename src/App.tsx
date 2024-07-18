@@ -5,7 +5,7 @@ import WelcomeScreen from "./components/screens/WelcomeScreen";
 import TestScreen from "./components/screens/TestScreen";
 import FinishScreen from "./components/screens/FinishScreen";
 import { toQuestionWithResponse } from "./utils";
-import { GET_QUESTIONS_URL } from "./constants";
+import { GET_QUESTIONS_URL, POST_SCORE_URL } from "./constants";
 
 function App() {
   // STATES
@@ -37,7 +37,21 @@ function App() {
   };
 
   const onDone = () => {
-    setState("done");
+    fetch(POST_SCORE_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        score:
+          (questions.filter((q) => q.response === q.answer).length /
+            questions.length) *
+          100,
+      }),
+    }).then((leaderboard) => {
+      setState("done");
+    });
   };
 
   const onRestart = () => {
